@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header">
+                <h2 class="card-title h4 mb-0">Start Language Learning Session</h2>
+            </div>
+            <div class="card-body">
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <form action="{{ url_for('start_chat') }}" method="post">
+                    <div class="mb-3">
+                        <label for="native_language" class="form-label">Your Native Language</label>
+                        <select class="form-select" id="native_language" name="native_language" required>
+                            <option value="" selected disabled>Select your native language</option>
+                            {% for code, name in languages.items() %}
+                            <option value="{{ code }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="target_language" class="form-label">Language You Want to Learn</label>
+                        <select class="form-select" id="target_language" name="target_language" required>
+                            <option value="" selected disabled>Select target language</option>
+                            {% for code, name in languages.items() %}
+                            <option value="{{ code }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="proficiency_level" class="form-label">Your Proficiency Level</label>
+                        <select class="form-select" id="proficiency_level" name="proficiency_level" required>
+                            <option value="" selected disabled>Select your proficiency level</option>
+                            {% for code, name in proficiency_levels.items() %}
+                            <option value="{{ code }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="conversation_context" class="form-label">Conversation Context</label>
+                        <select class="form-select" id="conversation_context" name="conversation_context" required>
+                            <option value="" selected disabled>Select conversation context</option>
+                            {% for code, name in conversation_contexts.items() %}
+                            <option value="{{ code }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-comments me-2"></i>
+                            Start Conversation
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <p class="text-muted mb-0 small">The chatbot will help you practice conversations, provide corrections, and give feedback to improve your language skills.</p>
+            </div>
+        </div>
+        
+        <div class="card mt-4 shadow">
+            <div class="card-header">
+                <h3 class="card-title h5 mb-0">How It Works</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="bg-secondary bg-opacity-10 rounded-circle d-inline-flex justify-content-center align-items-center mb-2" style="width: 60px; height: 60px;">
+                            <i class="fas fa-comment-dots text-primary fs-3"></i>
+                        </div>
+                        <h4 class="h6">1. Start a Conversation</h4>
+                        <p class="small text-muted">Choose your settings and begin chatting in your target language</p>
+                    </div>
+                    
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="bg-secondary bg-opacity-10 rounded-circle d-inline-flex justify-content-center align-items-center mb-2" style="width: 60px; height: 60px;">
+                            <i class="fas fa-check-double text-success fs-3"></i>
+                        </div>
+                        <h4 class="h6">2. Get Real-time Corrections</h4>
+                        <p class="small text-muted">The bot will identify mistakes and explain corrections</p>
+                    </div>
+                    
+                    <div class="col-md-4 text-center mb-3">
+                        <div class="bg-secondary bg-opacity-10 rounded-circle d-inline-flex justify-content-center align-items-center mb-2" style="width: 60px; height: 60px;">
+                            <i class="fas fa-chart-line text-info fs-3"></i>
+                        </div>
+                        <h4 class="h6">3. Review Your Progress</h4>
+                        <p class="small text-muted">Get personalized feedback and suggestions for improvement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

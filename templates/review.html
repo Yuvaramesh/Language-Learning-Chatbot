@@ -1,0 +1,188 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title h4 mb-0">Session Review</h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h3 class="h5 border-bottom pb-2 mb-3">Session Details</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-1">
+                                <span class="text-muted">Native Language:</span> {{ native_language }}
+                            </p>
+                            <p class="mb-1">
+                                <span class="text-muted">Target Language:</span> {{ target_language }}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-1">
+                                <span class="text-muted">Proficiency Level:</span> {{ proficiency_level }}
+                            </p>
+                            <p class="mb-1">
+                                <span class="text-muted">Conversation Context:</span> {{ conversation_context }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if feedback and feedback.overall_assessment %}
+                <div class="mb-4">
+                    <h3 class="h5 border-bottom pb-2 mb-3">Overall Assessment</h3>
+                    <p>{{ feedback.overall_assessment }}</p>
+                </div>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="card h-100 bg-success bg-opacity-10 border-success">
+                            <div class="card-header bg-success bg-opacity-25">
+                                <h4 class="h6 mb-0">
+                                    <i class="fas fa-thumbs-up me-2"></i>
+                                    Strengths
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                {% if feedback.strengths %}
+                                <ul class="mb-0">
+                                    {% for strength in feedback.strengths %}
+                                    <li>{{ strength }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p class="text-muted mb-0">No specific strengths identified.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="card h-100 bg-warning bg-opacity-10 border-warning">
+                            <div class="card-header bg-warning bg-opacity-25">
+                                <h4 class="h6 mb-0">
+                                    <i class="fas fa-exclamation-circle me-2"></i>
+                                    Areas for Improvement
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                {% if feedback.areas_for_improvement %}
+                                <ul class="mb-0">
+                                    {% for area in feedback.areas_for_improvement %}
+                                    <li>{{ area }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p class="text-muted mb-0">No specific areas for improvement identified.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="mb-4">
+                    <h3 class="h5 border-bottom pb-2 mb-3">Common Mistakes</h3>
+                    
+                    {% if mistakes and mistakes|length > 0 %}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Original</th>
+                                    <th>Correction</th>
+                                    <th>Explanation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mistake in mistakes %}
+                                <tr>
+                                    <td class="text-danger"><del>{{ mistake.original }}</del></td>
+                                    <td class="text-success">{{ mistake.corrected }}</td>
+                                    <td>{{ mistake.explanation }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% elif feedback and feedback.common_mistakes %}
+                    <div class="row">
+                        {% if feedback.common_mistakes.grammar and feedback.common_mistakes.grammar|length > 0 %}
+                        <div class="col-md-4 mb-3">
+                            <h4 class="h6">Grammar</h4>
+                            <ul>
+                                {% for item in feedback.common_mistakes.grammar %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        {% if feedback.common_mistakes.vocabulary and feedback.common_mistakes.vocabulary|length > 0 %}
+                        <div class="col-md-4 mb-3">
+                            <h4 class="h6">Vocabulary</h4>
+                            <ul>
+                                {% for item in feedback.common_mistakes.vocabulary %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                        
+                        {% if feedback.common_mistakes.sentence_structure and feedback.common_mistakes.sentence_structure|length > 0 %}
+                        <div class="col-md-4 mb-3">
+                            <h4 class="h6">Sentence Structure</h4>
+                            <ul>
+                                {% for item in feedback.common_mistakes.sentence_structure %}
+                                <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% else %}
+                    <p class="text-muted">No mistakes were identified during this session.</p>
+                    {% endif %}
+                </div>
+                
+                {% if feedback and feedback.suggested_exercises and feedback.suggested_exercises|length > 0 %}
+                <div class="mb-4">
+                    <h3 class="h5 border-bottom pb-2 mb-3">Suggested Exercises</h3>
+                    <div class="bg-info bg-opacity-10 p-3 rounded">
+                        <ul class="mb-0">
+                            {% for exercise in feedback.suggested_exercises %}
+                            <li>{{ exercise }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if feedback and feedback.next_level_goals and feedback.next_level_goals|length > 0 %}
+                <div class="mb-4">
+                    <h3 class="h5 border-bottom pb-2 mb-3">Goals for Next Level</h3>
+                    <div class="bg-primary bg-opacity-10 p-3 rounded">
+                        <ul class="mb-0">
+                            {% for goal in feedback.next_level_goals %}
+                            <li>{{ goal }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="text-center mt-4">
+                    <form action="{{ url_for('new_session') }}" method="post">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus-circle me-2"></i>
+                            Start New Session
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

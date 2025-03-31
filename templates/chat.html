@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card shadow h-100">
+            <div class="card-header">
+                <h3 class="card-title h5 mb-0">Session Information</h3>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-info text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width: 28px; height: 28px;">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h4 class="h6 mb-0">Languages</h4>
+                    </div>
+                    <p class="mb-1 small">
+                        <span class="text-muted">Native:</span> {{ native_language }}
+                    </p>
+                    <p class="mb-0 small">
+                        <span class="text-muted">Learning:</span> {{ target_language }}
+                    </p>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width: 28px; height: 28px;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4 class="h6 mb-0">Proficiency Level</h4>
+                    </div>
+                    <p class="mb-0 small">{{ proficiency_level }}</p>
+                </div>
+                
+                <div class="mb-0">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="bg-warning text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width: 28px; height: 28px;">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4 class="h6 mb-0">Context</h4>
+                    </div>
+                    <p class="mb-0 small">{{ conversation_context }}</p>
+                </div>
+            </div>
+            
+            <div class="card-footer p-3">
+                <div id="feedback-container" class="mb-0"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header">
+                <h3 class="card-title h5 mb-0">
+                    <i class="fas fa-comments me-2"></i>
+                    Conversation
+                </h3>
+            </div>
+            
+            <div class="card-body">
+                <div id="chat-container" class="chat-container mb-3">
+                    <!-- Chat messages will be displayed here -->
+                    {% for message in conversation_history %}
+                        {% if message.role == "assistant" %}
+                        <div class="message assistant-message">
+                            <div class="message-content">{{ message.content }}</div>
+                        </div>
+                        {% elif message.role == "user" %}
+                        <div class="message user-message">
+                            <div class="message-content">{{ message.content }}</div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                
+                <form id="message-form" class="message-form">
+                    <div class="input-group">
+                        <textarea id="user-input" class="form-control" rows="2" placeholder="Type your message in the target language..." required></textarea>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+<script src="{{ url_for('static', filename='js/feedback.js') }}"></script>
+{% endblock %}
