@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Chatbot - Architecture</title>
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    <style>
+        .architecture-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .architecture-diagram {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        .section {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        
+        .component-description {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .component-title {
+            color: var(--bs-info);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body data-bs-theme="dark">
+    <div class="container mt-4">
+        <div class="architecture-container">
+            <h1 class="mb-4">Language Learning Chatbot Architecture</h1>
+            
+            <div class="section">
+                <p class="lead">
+                    This diagram illustrates the complete architecture of our language learning chatbot system,
+                    showing how different components interact to provide a seamless language learning experience.
+                </p>
+            </div>
+            
+            <div class="section">
+                <h2 class="mb-3">System Architecture</h2>
+                <object class="architecture-diagram" data="/static/images/architecture_diagram.svg" type="image/svg+xml">
+                    Your browser does not support SVG
+                </object>
+            </div>
+            
+            <div class="section mt-5">
+                <h2 class="mb-3">Database Schema</h2>
+                <object class="architecture-diagram" data="/static/images/database_diagram.svg" type="image/svg+xml">
+                    Your browser does not support SVG
+                </object>
+            </div>
+            
+            <div class="section mt-5">
+                <h2 class="mb-3">Data Flow</h2>
+                <object class="architecture-diagram" data="/static/images/data_flow_diagram.svg" type="image/svg+xml">
+                    Your browser does not support SVG
+                </object>
+            </div>
+            
+            <div class="section">
+                <h2 class="mb-3">Key Components</h2>
+                
+                <div class="component-description">
+                    <h3 class="component-title">User Interface Layer</h3>
+                    <p>
+                        The web-based interface that users interact with directly. It includes the chat interface,
+                        language selection screens, and feedback display. Built with HTML, CSS, JavaScript, and
+                        Bootstrap for responsive design.
+                    </p>
+                </div>
+                
+                <div class="component-description">
+                    <h3 class="component-title">Web Server Layer</h3>
+                    <p>
+                        Handles HTTP requests and responses. Powered by Flask and Gunicorn, it processes user inputs,
+                        manages routing, and renders templates to generate dynamic content.
+                    </p>
+                </div>
+                
+                <div class="component-description">
+                    <h3 class="component-title">Application Logic Layer</h3>
+                    <p>
+                        The core business logic that powers the language learning experience. This includes conversation
+                        management, feedback generation, and error detection modules that facilitate the learning process.
+                    </p>
+                </div>
+                
+                <div class="component-description">
+                    <h3 class="component-title">AI Integration Layer</h3>
+                    <p>
+                        Connects to OpenAI's language models through API calls. The GPT-4o model generates natural
+                        conversation responses, detects language errors, and provides personalized feedback. Future
+                        enhancements will include embeddings and vision capabilities.
+                    </p>
+                </div>
+                
+                <div class="component-description">
+                    <h3 class="component-title">Data Layer</h3>
+                    <p>
+                        PostgreSQL database that stores all application data through SQLAlchemy ORM. This includes
+                        conversation metadata, message history, and language mistake tracking for comprehensive
+                        learning analytics.
+                    </p>
+                </div>
+                
+                <div class="component-description">
+                    <h3 class="component-title">External Services (Future)</h3>
+                    <p>
+                        Planned integrations with authentication systems and advanced analytics tools to enhance
+                        the platform's capabilities and provide more personalized learning experiences.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="mb-3">Architecture Benefits</h2>
+                <p>
+                    The system architecture provides several key benefits:
+                </p>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item">Separation of concerns for easier maintenance and updates</li>
+                    <li class="list-group-item">Scalability through modular component design</li>
+                    <li class="list-group-item">Flexibility to expand features without major restructuring</li>
+                    <li class="list-group-item">Optimized performance through efficient data flow</li>
+                    <li class="list-group-item">Security through layered design and controlled access</li>
+                </ul>
+                <p>
+                    This architecture ensures smooth communication between components while maintaining 
+                    clear boundaries for maintainability and scalability.
+                </p>
+            </div>
+            
+            <div class="mt-4">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

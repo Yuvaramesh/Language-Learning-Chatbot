@@ -266,5 +266,10 @@ def new_session():
     session.clear()
     return redirect(url_for('index'))
 
+@app.route('/architecture')
+def architecture():
+    """Display the system architecture diagram and explanation."""
+    return render_template('architecture.html')
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
