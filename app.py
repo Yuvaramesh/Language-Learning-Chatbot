@@ -3,7 +3,7 @@ import logging
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
-import openai_service
+import gemini_service
 import json
 from datetime import datetime
 
@@ -108,7 +108,7 @@ def start_chat():
             session['conversation_id'] = conversation.id
             
             # Initialize with a system message
-            initial_message = openai_service.get_initial_message(
+            initial_message = gemini_service.get_initial_message(
                 native_language, 
                 target_language, 
                 proficiency_level, 
@@ -163,8 +163,8 @@ def send_message():
     conversation_history.append({"role": "user", "content": user_message})
     
     try:
-        # Get response from OpenAI with corrections
-        response_data = openai_service.process_message(
+        # Get response from Gemini with corrections
+        response_data = gemini_service.process_message(
             user_message,
             session.get('target_language'),
             session.get('proficiency_level'),
@@ -235,7 +235,7 @@ def end_session():
     
     # Generate feedback report
     try:
-        feedback = openai_service.generate_session_feedback(
+        feedback = gemini_service.generate_session_feedback(
             session.get('conversation_history', []),
             session.get('mistakes', []),
             session.get('target_language'),
