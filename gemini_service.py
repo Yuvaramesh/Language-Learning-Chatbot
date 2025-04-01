@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Initialize Gemini API with your API key
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+GEMINI_API_KEY = "AIzaSyAm_IEKXeiwfLW3JHuTrgqShT38yvro6QY"
 genai.configure(api_key=GEMINI_API_KEY)
 
 # Default model for Gemini - using the latest as of April 2025
