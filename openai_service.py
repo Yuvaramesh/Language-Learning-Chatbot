@@ -3,6 +3,7 @@ import json
 import logging
 from openai import OpenAI
 from rate_limiter import openai_limiter
+import fallback_service
 
 # the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
 # do not change this unless explicitly requested by the user
@@ -15,8 +16,17 @@ openai = OpenAI(api_key=OPENAI_API_KEY)
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
+# Flag to control whether to use OpenAI API or fallback
+# Setting to False to use the fallback service instead of OpenAI API
+USE_OPENAI_API = False
+
 def get_initial_message(native_language, target_language, proficiency_level, conversation_context):
     """Generate an initial message for the conversation based on user settings."""
+    
+    # If we're not using the OpenAI API, use the fallback service directly
+    if not USE_OPENAI_API:
+        return fallback_service.get_initial_message(native_language, target_language, proficiency_level, conversation_context)
+    
     system_message = f"""
     I am a language learning assistant for a conversation in {target_language}.
     The user's native language is {native_language} and their proficiency level is {proficiency_level}.
@@ -45,11 +55,16 @@ def get_initial_message(native_language, target_language, proficiency_level, con
         return response.choices[0].message.content
     except Exception as e:
         logging.error(f"Error generating initial message: {e}")
-        # Fallback message if API call fails
-        return f"Welcome to your {target_language} conversation practice! Let's talk about {conversation_context}. How are you today?"
+        # Use fallback service if API call fails
+        return fallback_service.get_initial_message(native_language, target_language, proficiency_level, conversation_context)
 
 def process_message(user_message, target_language, proficiency_level, conversation_history):
     """Process a user message, detect errors, and generate a response with corrections."""
+    
+    # If we're not using the OpenAI API, use the fallback service directly
+    if not USE_OPENAI_API:
+        return fallback_service.process_message(user_message, target_language, proficiency_level, conversation_history)
+    
     system_prompt = f"""
     You are a language learning assistant for {target_language} at {proficiency_level} level.
     Your task is to:
@@ -107,13 +122,16 @@ def process_message(user_message, target_language, proficiency_level, conversati
         return response_data
     except Exception as e:
         logging.error(f"Error processing message: {e}")
-        return {
-            "response": "I'm sorry, I encountered an error processing your message. Let's continue our conversation.",
-            "corrections": []
-        }
+        # Use fallback service if API call fails
+        return fallback_service.process_message(user_message, target_language, proficiency_level, conversation_history)
 
 def generate_session_feedback(conversation_history, mistakes, target_language, proficiency_level):
     """Generate comprehensive feedback at the end of a session."""
+    
+    # If we're not using the OpenAI API, use the fallback service directly
+    if not USE_OPENAI_API:
+        return fallback_service.generate_session_feedback(conversation_history, mistakes, target_language, proficiency_level)
+    
     system_prompt = f"""
     You are a language learning coach for {target_language} at {proficiency_level} level.
     Review the conversation history and mistakes to provide comprehensive feedback.
@@ -173,15 +191,5 @@ def generate_session_feedback(conversation_history, mistakes, target_language, p
         return feedback
     except Exception as e:
         logging.error(f"Error generating session feedback: {e}")
-        return {
-            "overall_assessment": "Unable to generate a complete assessment at this time.",
-            "strengths": [],
-            "areas_for_improvement": [],
-            "common_mistakes": {
-                "grammar": [],
-                "vocabulary": [],
-                "sentence_structure": []
-            },
-            "suggested_exercises": [],
-            "next_level_goals": []
-        }
+        # Use fallback service if API call fails
+        return fallback_service.generate_session_feedback(conversation_history, mistakes, target_language, proficiency_level)
