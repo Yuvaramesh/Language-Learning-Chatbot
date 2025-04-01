@@ -2,6 +2,7 @@ import os
 import json
 import logging
 from openai import OpenAI
+from rate_limiter import openai_limiter
 
 # the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
 # do not change this unless explicitly requested by the user
@@ -10,6 +11,9 @@ OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 # Initialize OpenAI client
 openai = OpenAI(api_key=OPENAI_API_KEY)
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
 def get_initial_message(native_language, target_language, proficiency_level, conversation_context):
     """Generate an initial message for the conversation based on user settings."""
@@ -28,6 +32,9 @@ def get_initial_message(native_language, target_language, proficiency_level, con
     
     # Create a welcoming initial message in the target language
     try:
+        # Apply rate limiting before making the API call
+        openai_limiter.wait_if_needed()
+        
         response = openai.chat.completions.create(
             model=MODEL,
             messages=[
@@ -78,6 +85,9 @@ def process_message(user_message, target_language, proficiency_level, conversati
             "role": "user", 
             "content": f"Please analyze my message for errors and respond accordingly: {user_message}"
         })
+        
+        # Apply rate limiting before making the API call
+        openai_limiter.wait_if_needed()
         
         response = openai.chat.completions.create(
             model=MODEL,
@@ -133,6 +143,9 @@ def generate_session_feedback(conversation_history, mistakes, target_language, p
             "role": "user", 
             "content": f"Here is the conversation history:\n{conversation_text}\n\nAnd here are the mistakes that were corrected:\n{json.dumps(mistakes, indent=2)}\n\nPlease provide comprehensive feedback."
         })
+        
+        # Apply rate limiting before making the API call
+        openai_limiter.wait_if_needed()
         
         response = openai.chat.completions.create(
             model=MODEL,

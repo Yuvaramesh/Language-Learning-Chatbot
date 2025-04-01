@@ -1,0 +1,115 @@
+DEBUG:openai._base_client:Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': '\n    You are a language learning assistant for de at beginner level.\n    Your task is to:\n    1. Maintain a natural conversation with the learner\n    2. Identify any language mistakes in their message\n    3. Generate corrections with explanations\n    4. Respond naturally to continue the conversation\n    \n    Format your response as JSON with the following structure:\n    {\n        "response": "Your natural conversational response in de",\n        "corrections": [\n            {\n                "original": "incorrect phrase or word",\n                "corrected": "correct phrase or word",\n                "explanation": "brief explanation of the correction in the learner\'s native language"\n            }\n        ]\n    }\n    \n    If there are no corrections needed, return an empty array for "corrections".\n    '}, {'role': 'system', 'content': "Welcome to your de conversation practice! Let's talk about casual. How are you today?"}, {'role': 'assistant', 'content': "Welcome to your de conversation practice! Let's talk about casual. How are you today?"}, {'role': 'user', 'content': 'help me'}, {'role': 'assistant', 'content': "I'm sorry, I encountered an error processing your message. Let's continue our conversation."}, {'role': 'user', 'content': 'fy'}, {'role': 'user', 'content': 'Please analyze my message for errors and respond accordingly: fy'}], 'model': 'gpt-3.5-turbo', 'response_format': {'type': 'json_object'}}}   
+DEBUG:openai._base_client:Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+DEBUG:httpcore.connection:close.started
+DEBUG:httpcore.connection:close.complete
+DEBUG:httpcore.connection:connect_tcp.started host='api.openai.com' port=443 local_address=None timeout=5.0 socket_options=None        
+DEBUG:httpcore.connection:connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D44B8D90A0>
+DEBUG:httpcore.connection:start_tls.started ssl_context=<ssl.SSLContext object at 0x000001D44B270CD0> server_hostname='api.openai.com' timeout=5.0
+DEBUG:httpcore.connection:start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D44B8D9520>
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'Date', b'Tue, 01 Apr 2025 06:30:18 GMT'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Content-Length', b'337'), (b'Connection', b'keep-alive'), (b'vary', b'Origin'), (b'x-request-id', b'req_54063cbd83dbedec69963c32caafcbf7'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'92960979f9bb8826-MAA'), (b'alt-svc', b'h3=":443"; ma=86400')])
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:openai._base_client:HTTP Response: POST https://api.openai.com/v1/chat/completions "429 Too Many Requests" Headers({'date': 'Tue, 01 Apr 2025 06:30:18 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '337', 'connection': 'keep-alive', 'vary': 'Origin', 'x-request-id': 'req_54063cbd83dbedec69963c32caafcbf7', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'server': 'cloudflare', 'cf-ray': '92960979f9bb8826-MAA', 'alt-svc': 'h3=":443"; ma=86400'})
+DEBUG:openai._base_client:request_id: req_54063cbd83dbedec69963c32caafcbf7
+DEBUG:openai._base_client:Encountered httpx.HTTPStatusError
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py", line 1002, in _request
+    response.raise_for_status()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.openai.com/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+DEBUG:openai._base_client:Retrying due to status code 429
+DEBUG:openai._base_client:2 retries left
+INFO:openai._base_client:Retrying request to /chat/completions in 0.445784 seconds
+DEBUG:openai._base_client:Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': '\n    You are a language learning assistant for de at beginner level.\n    Your task is to:\n    1. Maintain a natural conversation with the learner\n    2. Identify any language mistakes in their message\n    3. Generate corrections with explanations\n    4. Respond naturally to continue the conversation\n    \n    Format your response as JSON with the following structure:\n    {\n        "response": "Your natural conversational response in de",\n        "corrections": [\n            {\n                "original": "incorrect phrase or word",\n                "corrected": "correct phrase or word",\n                "explanation": "brief explanation of the correction in the learner\'s native language"\n            }\n        ]\n    }\n    \n    If there are no corrections needed, return an empty array for "corrections".\n    '}, {'role': 'system', 'content': "Welcome to your de conversation practice! Let's talk about casual. How are you today?"}, {'role': 'assistant', 'content': "Welcome to your de conversation practice! Let's talk about casual. How are you today?"}, {'role': 'user', 'content': 'help me'}, {'role': 'assistant', 'content': "I'm sorry, I encountered an error processing your message. Let's continue our conversation."}, {'role': 'user', 'content': 'fy'}, {'role': 'user', 'content': 'Please analyze my message for errors and respond accordingly: fy'}], 'model': 'gpt-3.5-turbo', 'response_format': {'type': 'json_object'}}}   
+DEBUG:openai._base_client:Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'Date', b'Tue, 01 Apr 2025 06:30:19 GMT'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Content-Length', b'337'), (b'Connection', b'keep-alive'), (b'vary', b'Origin'), (b'x-request-id', b'req_9ff11f75cb80ab18a7ba54db11716658'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'9296097f5e518826-MAA'), (b'alt-svc', b'h3=":443"; ma=86400')])
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:openai._base_client:HTTP Response: POST https://api.openai.com/v1/chat/completions "429 Too Many Requests" Headers({'date': 'Tue, 01 Apr 2025 06:30:19 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '337', 'connection': 'keep-alive', 'vary': 'Origin', 'x-request-id': 'req_9ff11f75cb80ab18a7ba54db11716658', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'server': 'cloudflare', 'cf-ray': '9296097f5e518826-MAA', 'alt-svc': 'h3=":443"; ma=86400'})
+DEBUG:openai._base_client:request_id: req_9ff11f75cb80ab18a7ba54db11716658
+DEBUG:openai._base_client:Encountered httpx.HTTPStatusError
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py", line 1002, in _request
+    response.raise_for_status()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.openai.com/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py", line 1002, in _request
+    response.raise_for_status()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.openai.com/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+DEBUG:openai._base_client:Retrying due to status code 429
+DEBUG:openai._base_client:1 retry left
+INFO:openai._base_client:Retrying request to /chat/completions in 0.993609 seconds
+DEBUG:openai._base_client:Request options: {'method': 'post', 'url': '/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': '\n    You are a language learning assistant for de at beginner level.\n    Your task is to:\n    1. Maintain a natural conversation with the learner\n    2. Identify any language mistakes in their message\n    3. Generate corrections with explanations\n    4. Respond naturally to continue the conversation\n    \n    Format your response as JSON with the following structure:\n    {\n        "response": "Your natural conversational response in de",\n        "corrections": [\n            {\n                "original": "incorrect phrase or word",\n                "corrected": "correct phrase or word",\n                "explanation": "brief explanation of the correction in the learner\'s native language"\n            }\n        ]\n    }\n    \n    If there are no corrections needed, return an empty array for "corrections".\n    '}, {'role': 'system', 'content': "Welcome to your de conversation practice! Let's talk about casual. How are you today?"}, {'role': 'assistant', 'content': "Welcome to your de conversation practice! Let's talk about casual. How are you today?"}, {'role': 'user', 'content': 'help me'}, {'role': 'assistant', 'content': "I'm sorry, I encountered an error processing your message. Let's continue our conversation."}, {'role': 'user', 'content': 'fy'}, {'role': 'user', 'content': 'Please analyze my message for errors and respond accordingly: fy'}], 'model': 'gpt-3.5-turbo', 'response_format': {'type': 'json_object'}}}   
+DEBUG:openai._base_client:Sending HTTP Request: POST https://api.openai.com/v1/chat/completions
+DEBUG:httpcore.http11:send_request_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_headers.complete
+DEBUG:httpcore.http11:send_request_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:send_request_body.complete
+DEBUG:httpcore.http11:receive_response_headers.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_headers.complete return_value=(b'HTTP/1.1', 429, b'Too Many Requests', [(b'Date', b'Tue, 01 Apr 2025 06:30:20 GMT'), (b'Content-Type', b'application/json; charset=utf-8'), (b'Content-Length', b'337'), (b'Connection', b'keep-alive'), (b'vary', b'Origin'), (b'x-request-id', b'req_9420e726255b7799ddf62e61e24ec8ea'), (b'strict-transport-security', b'max-age=31536000; includeSubDomains; preload'), (b'cf-cache-status', b'DYNAMIC'), (b'X-Content-Type-Options', b'nosniff'), (b'Server', b'cloudflare'), (b'CF-RAY', b'92960987abeb8826-MAA'), (b'alt-svc', b'h3=":443"; ma=86400')])
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+DEBUG:httpcore.http11:receive_response_body.started request=<Request [b'POST']>
+DEBUG:httpcore.http11:receive_response_body.complete
+DEBUG:httpcore.http11:response_closed.started
+DEBUG:httpcore.http11:response_closed.complete
+DEBUG:openai._base_client:HTTP Response: POST https://api.openai.com/v1/chat/completions "429 Too Many Requests" Headers({'date': 'Tue, 01 Apr 2025 06:30:20 GMT', 'content-type': 'application/json; charset=utf-8', 'content-length': '337', 'connection': 'keep-alive', 'vary': 'Origin', 'x-request-id': 'req_9420e726255b7799ddf62e61e24ec8ea', 'strict-transport-security': 'max-age=31536000; includeSubDomains; preload', 'cf-cache-status': 'DYNAMIC', 'x-content-type-options': 'nosniff', 'server': 'cloudflare', 'cf-ray': '92960987abeb8826-MAA', 'alt-svc': 'h3=":443"; ma=86400'})
+DEBUG:openai._base_client:request_id: req_9420e726255b7799ddf62e61e24ec8ea
+DEBUG:openai._base_client:Encountered httpx.HTTPStatusError
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py", line 1002, in _request
+    response.raise_for_status()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.openai.com/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py", line 1002, in _request
+    response.raise_for_status()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.openai.com/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\openai\_base_client.py", line 1002, in _request
+    response.raise_for_status()
+  File "C:\Users\sakth\AppData\Roaming\Python\Python312\site-packages\httpx\_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '429 Too Many Requests' for url 'https://api.openai.com/v1/chat/completions'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429
+DEBUG:openai._base_client:Re-raising status error
+ERROR:root:Error processing message: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+INFO:werkzeug:127.0.0.1 - - [01/Apr/2025 12:01:21] "POST /send_message HTTP/1.1" 200 -
