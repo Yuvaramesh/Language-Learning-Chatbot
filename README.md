@@ -15,7 +15,7 @@
 - **Web Framework:** Flask  
 - **AI Service:** Gemini API (instead of OpenAI)  
 - **Database:** SQLite  
-- **Error Tracking:** Flaskcards
+- **Error Tracking:** Flashcards
 
 
 ### ✅ System Design
